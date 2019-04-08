@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using DatingApp.API.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.API.Data
 {
@@ -12,11 +13,35 @@ namespace DatingApp.API.Data
             _context=context;
         }
 
-        public Task<User> Login(string username, string password)
+        public async Task<User> Login(string username, string password)
         {
-            throw new System.NotImplementedException();
+            var user=await GetByUserName(username);
+            if (user==null)
+                return null;
+            if(!VerifyPasswordHash(password,user.PasswordHash,user.PasswordSalt))
+                return null;
+            return user;
         }
 
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using(var hmac=new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));                
+                for (int i = 0; i < computedHash.Length; i++)
+                {
+                    if (computedHash[i] != passwordHash[i]) return false;                    
+                }
+            }
+            return true;
+        }
+
+        public async Task<User> GetByUserName(string usarname)
+        {
+            var user=await _context.Users.FirstOrDefaultAsync(x=>x.UserName==usarname);
+            return user;
+        }
+        
         public async Task<User> Register(User user, string password)
         {
             byte[] passwordHash,passwordSalt;
@@ -35,14 +60,13 @@ namespace DatingApp.API.Data
             {
                 passwordSalt=hmac.Key;
                 passwordHash=hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
-            }
-            
-            throw new NotImplementedException();
+            }           
         }
 
-        public Task<bool> UserExists(string username)
+        public async Task<bool> UserExists(string username)
         {
-            throw new System.NotImplementedException();
+            var result=await _context.Users.AnyAsync(x=>x.UserName==username);
+            return result;
         }
     }
 }
