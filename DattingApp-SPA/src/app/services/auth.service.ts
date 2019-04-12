@@ -10,8 +10,7 @@ baseApiUrl = 'http://localhost:5000/api/auth/';
 
 constructor(private http: HttpClient) { }
 
-  login(userLogin: any)
-  {
+  login(userLogin: any) {
     return this.http.post(this.baseApiUrl + 'login', userLogin)
                     .pipe(
                         map((response: any) => {
@@ -21,5 +20,9 @@ constructor(private http: HttpClient) { }
                           }
                         })
                     );
+  }
+
+  register(model: any) {
+    return this.http.post(this.baseApiUrl + 'register', model);
   }
 }
