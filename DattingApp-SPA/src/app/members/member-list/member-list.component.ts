@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../models/user';
-import { UserService } from '../services/user.service';
-import { AlertifyService } from '../services/alertify.service';
-import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { AlertifyService } from '../../services/alertify.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-member-list',
