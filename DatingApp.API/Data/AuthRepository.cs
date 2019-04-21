@@ -38,7 +38,7 @@ namespace DatingApp.API.Data
 
         public async Task<User> GetByUserName(string usarname)
         {
-            var user=await _context.Users.FirstOrDefaultAsync(x=>x.UserName==usarname);
+            var user=await _context.Users.Include(p=>p.Photos).FirstOrDefaultAsync(x=>x.UserName==usarname);
             return user;
         }
         
