@@ -37,6 +37,7 @@ changeMemberPhoto(photoUrl: string) {
                             localStorage.setItem('user', JSON.stringify(user.user));
                             this.decodedToken = this.jwtHelper.decodeToken(user.token);
                             this.currentUser = user.user;
+                            this.changeMemberPhoto(this.currentUser.photoUrl);
                           }
                         })
                     );
@@ -59,6 +60,7 @@ changeMemberPhoto(photoUrl: string) {
     }
     if (user) {
       this.currentUser = user;
+      this.changeMemberPhoto(user.photoUrl);
     }
   }
 }
