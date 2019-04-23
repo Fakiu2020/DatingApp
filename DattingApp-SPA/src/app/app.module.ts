@@ -13,7 +13,7 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { AlertifyService } from './services/alertify.service';
 
 // ngx bootstrap
-import { BsDropdownModule, TabsModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { MessagesComponent } from './messages/messages.component';
@@ -59,6 +59,7 @@ export function tokenGetter() {
       AppRoutingModule,
       BsDropdownModule.forRoot(),
       TabsModule.forRoot(),
+      BsDatepickerModule.forRoot(),
       RouterModule.forRoot(appRoutes),
       NgxGalleryModule,
       FileUploadModule,
