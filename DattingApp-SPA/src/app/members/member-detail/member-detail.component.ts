@@ -23,7 +23,7 @@ export class MemberDetailComponent implements OnInit {
       this.user = data.user;
     });
 
-     this.galleryOptions = [
+    this.galleryOptions = [
        {
          width: '500px',
          height: '500px',
@@ -33,11 +33,12 @@ export class MemberDetailComponent implements OnInit {
          preview: false
        }
      ];
-     this.galleryImages = this.getImages();
+    this.galleryImages = this.getImages();
   }
 
    getImages() {
      const imageUrls = [];
+     // tslint:disable-next-line:prefer-for-of
      for (let i = 0; i < this.user.photos.length; i++) {
        imageUrls.push({
          small: this.user.photos[i].url,
