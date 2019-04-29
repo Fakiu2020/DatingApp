@@ -13,7 +13,7 @@ import { ErrorInterceptorProvider } from './services/error.interceptor';
 import { AlertifyService } from './services/alertify.service';
 
 // ngx bootstrap
-import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationComponent, PaginationModule } from 'ngx-bootstrap';
+import { BsDropdownModule, TabsModule, BsDatepickerModule, PaginationComponent, PaginationModule, ButtonsModule } from 'ngx-bootstrap';
 import { RouterModule } from '@angular/router';
 import { appRoutes } from './routes';
 import { MessagesComponent } from './messages/messages.component';
@@ -68,6 +68,7 @@ export function tokenGetter() {
       FileUploadModule,
       PaginationModule.forRoot(),
       ReactiveFormsModule,
+      ButtonsModule.forRoot(),
       JwtModule.forRoot({
          config: {
            tokenGetter,
