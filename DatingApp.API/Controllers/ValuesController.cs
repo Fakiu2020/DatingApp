@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DatingApp.Controllers
 {
-    [Authorize]
+
     [Route("api/[controller]")]
     [ApiController]
-    
+
     public class ValuesController : ControllerBase
     {
         public readonly DataContext _context;
@@ -22,55 +22,73 @@ namespace DatingApp.Controllers
         }
 
         // GET api/values
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [Authorize(Policy="VipOnly")]
+        public string GetOnlyAdmin()
         {
-            var values=await _context.Values.ToListAsync();
-
-            return Ok(values);
+            //var values=await _context.Values.ToListAsync();
+            return  "Only Admin";            
         }
 
+        
+        
+        // [HttpGet]
+        // [Authorize(Policy="Admin")]
+        // public string GetOnlyMember()
+        // {
+        //     //var values=await _context.Values.ToListAsync();
+        //     return  "Only Member";            
+        // }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(int id)
-        {
-            var value=await _context.Values.FirstOrDefaultAsync(x=>x.Id==id);
-            if(value==null)
-                return NotFound();
-            return Ok(value);
-        }
+        
+
+        // [HttpGet("{id}")]
+        // public async Task<IActionResult> GetById(int id)
+        // {
+        //     var value=await _context.Values.FirstOrDefaultAsync(x=>x.Id==id);
+        //     if(value==null)
+        //         return NotFound();
+        //     return Ok(value);
+        // }
         
         
         
         // [HttpGet]
-        // public ActionResult<IEnumerable<string>> Get()
+        // [Authorize(Roles="Member")]
+        // public ActionResult<IEnumerable<string>> GetMember()
         // {
-        //     return new string[] { "value1", "value2" };
+        //     return new string[] { "Only Member" };
         // }
 
-        // GET api/values/5
-        // [HttpGet("{id}")]
-        // public ActionResult<string> Get(int id)
+        //   [HttpGet]
+        // [AllowAnonymous]
+        // public ActionResult<IEnumerable<string>> GetAnonymous()
         // {
-        //     return "value";
+        //     return new string[] { "Only Anonymous" };
         // }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
+        // // GET api/values/5
+        // // [HttpGet("{id}")]
+        // // public ActionResult<string> Get(int id)
+        // // {
+        // //     return "value";
+        // // }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+        // // POST api/values
+        // [HttpPost]
+        // public void Post([FromBody] string value)
+        // {
+        // }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+        // // PUT api/values/5
+        // [HttpPut("{id}")]
+        // public void Put(int id, [FromBody] string value)
+        // {
+        // }
+
+        // // DELETE api/values/5
+        // [HttpDelete("{id}")]
+        // public void Delete(int id)
+        // {
+        // }
     }
 }
